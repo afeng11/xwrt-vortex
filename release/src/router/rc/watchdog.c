@@ -392,7 +392,7 @@ void btn_check_vtx(void)
 	}
 
 	if (btn_pressed != 0) return;
-
+#ifdef RTCONFIG_BTN_WIFITOG
 	if (button_pressed(BTN_WIFI_TOG))
 	{
 		TRACE_PT("button WIFI_TOG pressed\n");
@@ -407,7 +407,7 @@ void btn_check_vtx(void)
 	else{
 		btn_pressed_toggle_radio = 0;
 	}
-
+#endif
 #ifdef RTCONFIG_LED_BTN
 	if (button_pressed(BTN_LED))
 	{
