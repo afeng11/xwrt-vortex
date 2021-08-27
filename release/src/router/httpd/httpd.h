@@ -67,10 +67,8 @@ extern struct mime_handler mime_handlers[];
 #define RFC1123FMT "%a, %d %b %Y %H:%M:%S GMT"
 
 #ifdef RTCONFIG_HTTPS
-#if defined(RTCONFIG_JFFS2) || defined(RTCONFIG_BRCM_NAND_JFFS2) || defined(RTCONFIG_UBIFS)
 #define JFFSKEY "/jffs/ssl/key.pem"
 #define JFFSCERT "/jffs/ssl/cert.pem"
-#endif
 #endif
 
 //asus token status for APP
