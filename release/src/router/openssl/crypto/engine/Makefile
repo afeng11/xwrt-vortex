@@ -235,7 +235,7 @@ eng_openssl.o: ../../include/openssl/opensslconf.h
 eng_openssl.o: ../../include/openssl/opensslv.h
 eng_openssl.o: ../../include/openssl/ossl_typ.h ../../include/openssl/pem.h
 eng_openssl.o: ../../include/openssl/pem2.h ../../include/openssl/pkcs7.h
-eng_openssl.o: ../../include/openssl/rand.h ../../include/openssl/rc4.h
+eng_openssl.o: ../../include/openssl/rand.h
 eng_openssl.o: ../../include/openssl/rsa.h ../../include/openssl/safestack.h
 eng_openssl.o: ../../include/openssl/sha.h ../../include/openssl/stack.h
 eng_openssl.o: ../../include/openssl/symhacks.h ../../include/openssl/x509.h
