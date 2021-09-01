@@ -83,7 +83,7 @@ static const struct model_s model_list[] = {
 	{ "RT-N12D1",	MODEL_RTN12D1	},
 	{ "RT-N12VP",	MODEL_RTN12VP	},
 	{ "RT-N12HP",	MODEL_RTN12HP	},
-	{ "RT-N12HP_B1",	MODEL_RTN12HP_B1	},
+	{ "RT-N12HP_B1",MODEL_RTN12HP_B1},
 	{ "AP-N12",	MODEL_APN12	},
 	{ "AP-N12HP",	MODEL_APN12HP	},
 	{ "RT-N10U",	MODEL_RTN10U	},
@@ -187,10 +187,11 @@ int get_model(void)
 	return MODEL_WS880;
 #endif
 
-	pid = nvram_safe_get("productid");
+	pid = nvram_safe_get("model");
 	for (p = &model_list[0]; p->pid; ++p) {
 		if (!strcmp(pid, p->pid)) {
 			model = p->model;
+			nvram_set("productid", pid);
 			break;
 		}
 	}
