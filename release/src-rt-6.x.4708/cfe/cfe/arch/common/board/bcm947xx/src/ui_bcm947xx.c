@@ -56,10 +56,8 @@ extern void GPIO_INIT(void);
 /* define EA6900 GPIO */
 #define	LOGO_LED1_GPIO	(1 << 6)	// GPIO 6
 #define	LOGO_LED2_GPIO	(1 << 8)	// GPIO 8
-
 #define	USB1_PWR_GPIO	(1 << 9)	// GPIO 9
 #define	USB2_PWR_GPIO	(1 << 10)	// GPIO 10
-
 #define RST_BTN_GPIO	(1 << 11)	// GPIO 11
 #define WPS_BTN_GPIO	(1 << 7)	// GPIO 7
 #endif
@@ -76,9 +74,7 @@ extern void GPIO_INIT(void);
 #define	WIFI_LED_GPIO	(1 << 15)	// GPIO 15
 #define	USB2_LED_GPIO	(1 << 17)	// GPIO 17
 #define	USB3_LED_GPIO	(1 << 18)	// GPIO 18
-
 #define	USB_PWR_GPIO	(1 << 0)	// GPIO 0
-
 #define WPS_BTN_GPIO	(1 << 4)	// GPIO 4
 #define WIFI_BTN_GPIO	(1 << 5)	// GPIO 5
 #define RST_BTN_GPIO	(1 << 6)	// GPIO 6
@@ -91,18 +87,10 @@ extern void GPIO_INIT(void);
 #define	WPS_LED_GPIO	(1 << 6)	// GPIO 6
 #define	INET_LED_GPIO	(1 << 12)	// GPIO 12
 #define	USB_LED_GPIO	(1 << 14)	// GPIO 14
-
 #define	USB_PWR_GPIO	(1 << 7)	// GPIO 7
 #define RST_BTN_GPIO	(1 << 2)	// GPIO 2
 #define WPS_BTN_GPIO	(1 << 3)	// GPIO 3
 #define PWR_BTN_GPIO	(1 << 15)	// GPIO 15
-#endif
-
-#ifdef RT4GAC68U
-#define PWR_LED_GPIO	(1 << 3)	// GPIO 3
-#define RST_BTN_GPIO	(1 << 11)	// GPIO 11
-#undef WPS_BTN_GPIO
-#define WPS_BTN_GPIO	(1 << 7)	// GPIO 7
 #endif
 
 #ifdef RTL8365MB
@@ -193,20 +181,20 @@ ui_cmd_nvram(ui_cmdline_t *cmd, int argc, char *argv[])
 static int
 ui_cmd_devinfo(ui_cmdline_t *cmd, int argc, char *argv[])
 {
-        int ret;
+    int ret;
     char *tmp;
 
-        tmp = flashdrv_nvram;
-        flashdrv_nvram = devinfo_flashdrv_nvram;
-        _nvram_hash_select(1);  /* 1 is devinfo hash table idx */
+    tmp = flashdrv_nvram;
+    flashdrv_nvram = devinfo_flashdrv_nvram;
+    _nvram_hash_select(1);  /* 1 is devinfo hash table idx */
 
-        ret = _ui_cmd_nvram(cmd, argc, argv);
+    ret = _ui_cmd_nvram(cmd, argc, argv);
 
-        /* revert back to default nvram hash table */
-        flashdrv_nvram = tmp;
-        _nvram_hash_select(0);  /* 0 is nvram hash table idx */
+    /* revert back to default nvram hash table */
+    flashdrv_nvram = tmp;
+    _nvram_hash_select(0);  /* 0 is nvram hash table idx */
 
-        return (ret);
+    return (ret);
 }
 #endif
 
@@ -399,37 +387,11 @@ extern void GPIO_INIT(void)
 
 unsigned char DETECT(void)
 {
-        unsigned char d = 0;
-        char *rescueflag;
-
-        if ((rescueflag = nvram_get("rescueflag")) != NULL) {
-                if (!nvram_invmatch("rescueflag", "enable")) {
-                        xprintf("Rescue Flag enable.\n");
-                        d = 1;
-                }
-                else {
-                        xprintf("Rescue Flag disable.\n");
-                        if (mmode_set())
-                                d = 1;
-                        else
-                                d = 0;
-                }
-                nvram_set("rescueflag", "disable");
-                nvram_commit();
-        }
-        else {
-                xprintf("Null Rescue Flag.\n");
-                if (mmode_set())
-                        d = 1;
-                else
-                        d = 0;
-        }
-
         /* Set 1 to be high active and 0 to be low active */
-        if (d==1)
-                return 1;
+        if (mmode_set())
+        	return 1;
         else
-                return 0;
+        	return 0;
 }
 #endif // RESCUE_MODE
 
@@ -678,48 +640,33 @@ ui_cmd_go(ui_cmdline_t *cmd, int argc, char *argv[])
                 }
                 if(trx1_ret) { //trx1 failed
 #else
-                if (check_trx(trx_name) || nvram_match("asus_trx_test", "1")) {
-#endif
-                        xprintf("Hello!! Enter Rescue Mode: (Check error)\n\n");
-			FW_err_count = atoi(nvram_get("Ate_FW_err"));
-			FW_err_count++;
-			sprintf(FW_err, "%d", FW_err_count);
-			nvram_set("Ate_FW_err", FW_err);
-			nvram_commit();
-			if(nvram_match("asus_mfg", "1")){	// goto cmd mode if during ATE mode
-				LEDOFF();
-				cfe_command_loop();
-			} else{					// 3 steps
-				LEDOFF();
-				/* wait for cmd input */
-				xprintf("\n1. Wait 10 secs to enter tftp mode\n   or push RESCUE-BTN to enter cmd mode\n");
-				for(i=0; i<3; ++i){
-					if (DETECT())
-						cfe_command_loop();
-					else
-						cfe_sleep(2*CFE_HZ);
-				}
-                        	/* Wait awhile for an image */
-				xprintf("\n2. enter tftp mode:\n");
-				i=0;
-                        	while ((ret = ui_docommand("flash -noheader : nflash1.trx")) == CFE_ERR_TIMEOUT) {
-                                	if (i%2 == 0)
-                                        	LEDOFF();
-                                	else
-                                        	LEDON();
-                                	i++;
-					/*
-                                	if (i==0xffffff)
-                                        	i = 0;
-					*/
-                                	if (i > 20)
-						break;
-                        	}
-				LEDOFF();
-				/* try reboot if no actions at all */
-                        	xprintf("\n\n3. rebooting...\n");
-                		ui_docommand ("reboot");
+                if (check_trx(trx_name)) {
+#endif			// 3 steps
+			LEDOFF();
+			/* wait for cmd input */
+			xprintf("\n1. Wait 10 secs to enter tftp mode\n   or push RESCUE-BTN to enter cmd mode\n");
+			for(i=0; i<3; ++i){
+				if (DETECT())
+					cfe_command_loop();
+				else
+					cfe_sleep(2*CFE_HZ);
 			}
+                        /* Wait awhile for an image */
+			xprintf("\n2. enter tftp mode:\n");
+			i=0;
+                        while ((ret = ui_docommand("flash -noheader : nflash1.trx")) == CFE_ERR_TIMEOUT) {
+                                if (i%2 == 0)
+                                        LEDOFF();
+                                else
+                                        LEDON();
+                                i++;
+                                if (i > 20)
+					break;
+                        }
+			LEDOFF();
+			/* try reboot if no actions at all */
+                        xprintf("\n\n3. rebooting...\n");
+                	ui_docommand ("reboot");
                 } else if (!nvram_invmatch("boot_wait", "on")) {
                 //} else if (0) {
                         xprintf("go load\n");   // tmp test
