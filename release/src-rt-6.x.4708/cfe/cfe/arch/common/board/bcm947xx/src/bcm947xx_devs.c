@@ -183,22 +183,6 @@ BCMINITFN(nvram_wsgpio_init)(void *si)
 	return gpio;
 }
 
-int cpu_turbo_mode = 0;
-static void
-detect_turbo_button(void)
-{
-	int gpio;
-	uint32 gpiomask;
-
-	if ((gpio = nvram_wsgpio_init ((void *)sih)) < 0)
-		return;
-
-	/* active low */
-	gpiomask = (uint32)1 << gpio;
-	if (!(si_gpioin(sih) & gpiomask))
-		cpu_turbo_mode = 1;
-}
-
 /*
  *  board_console_init()
  *
