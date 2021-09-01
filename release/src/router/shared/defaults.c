@@ -30,13 +30,6 @@ struct nvram_tuple router_defaults[] = {
 	{ "preferred_lang", "EN" },
 
 	// NVRAM from init_nvram: system wide parameters accodring to model and mode
-	//{ "wan_ifnames", "" },
-	//{ "lan_ifnames", "" },
-	//{ "lan1_ifnames", "" },
-	//{ "vlan_enable", "" },
-	//{ "vlan0ports", "" },
-	//{ "vlan1ports", "" },
-	//{ "vlan2ports", "" },
 	/* Guest H/W parameters */
 
 	//Use to do force submit form request
@@ -670,12 +663,6 @@ struct nvram_tuple router_defaults[] = {
 	{ "wl_HT_BAWinSize", "64" },
 	{ "wl_HT_MCS", "33" },
 	{ "wl_HT_BADecline", "0" },
-//	{ "wl_HT_TxStream", "2" },
-//	{ "wl_HT_RxStream", "3" },
-//	{ "wl0_HT_TxStream", "2" }, // move to init_nvram for model dep.
-//	{ "wl0_HT_RxStream", "2" }, // move to init_nvram for model dep.
-//	{ "wl1_HT_TxStream", "2" }, // move to init_nvram for model dep.
-//	{ "wl1_HT_RxStream", "3" }, // move to init_nvram for model dep.
 	{ "wl_HT_STBC", "1" },
 	// the following for ralink 5g only
 	{ "wl_IEEE80211H", "0" },
@@ -709,12 +696,9 @@ struct nvram_tuple router_defaults[] = {
 #endif
 
 // WPS
-//	#if defined (W7_LOGO) || defined (WIFI_LOGO)
 	{ "wps_enable", "1" },
 	{ "wps_enable_x", "1" },
-//	#else
-//	{ "wps_enable_x", "0" },					// win7 logo
-//	#endif
+
 #ifdef RTCONFIG_RALINK
 	{ "wl_wsc_config_state", "0" },				/* config state unconfiged */
 #endif
@@ -854,8 +838,8 @@ struct nvram_tuple router_defaults[] = {
 						/* 0:Disable, 1:Primary, 2:Helper, 3:Standalone */
 	{ "bsd_hport", "9877", 0 },		/* BSD helper port */
 	{ "bsd_pport", "9878", 0 },		/* BSD Primary port */
-	{ "bsd_helper", "192.168.1.2", 0 },	/* BSD primary ipaddr */
-	{ "bsd_primary", "192.168.1.1", 0 },	/* BSD Helper ipaddr */
+	{ "bsd_helper", "192.168.10.2", 0 },	/* BSD primary ipaddr */
+	{ "bsd_primary", "192.168.10.1", 0 },	/* BSD Helper ipaddr */
 	{ "smart_connect_x", "0", 0 },		/* 0:Disable, 1:Tri-band, 2:5GHz */
 #if 0
 	{ "bsd_msglevel", "0x000010", 0 },	/* BSD_DEBUG_STEER */
@@ -985,9 +969,6 @@ struct nvram_tuple router_defaults[] = {
 #if defined(RTCONFIG_LED_BTN) || defined(RTCONFIG_WPS_ALLLED_BTN)
 	{ "AllLED",		"1"		},
 #endif
-//#ifdef RTCONFIG_BCMWL6
-//	{ "pktc_disable", 		"0"		},
-//#endif
 
 	// NVRAM for start_lan:
 // LAN H/W parameters
@@ -1005,8 +986,8 @@ struct nvram_tuple router_defaults[] = {
 	{ "lan_ipaddr",			"192.168.50.1"	},	// LAN IP address
 	{ "lan_ipaddr_rt",		"192.168.50.1"	},
 #else
-	{ "lan_ipaddr",			"192.168.1.1"	},	// LAN IP address
-	{ "lan_ipaddr_rt",		"192.168.1.1"	},
+	{ "lan_ipaddr",			"192.168.10.1"	},	// LAN IP address
+	{ "lan_ipaddr_rt",		"192.168.10.1"	},
 #endif
 	{ "lan_netmask",		"255.255.255.0"	},	// LAN netmask
 	{ "lan_netmask_rt",		"255.255.255.0" },
@@ -1038,9 +1019,9 @@ struct nvram_tuple router_defaults[] = {
 	{ "lan1_hwaddr", "" },			/* LAN interface MAC address */
 
 	{ "lan1_proto", "0", 0 },		/* DHCP client [static|dhcp] */
-	{ "lan1_ipaddr", "192.168.2.1", 0 },	/* LAN IP address */
+	{ "lan1_ipaddr", "192.168.11.1", 0 },	/* LAN IP address */
 	{ "lan1_netmask", "255.255.255.0", 0 },	/* LAN netmask */
-	{ "lan1_gateway", "192.168.2.1", 0 },	/* LAN gateway */
+	{ "lan1_gateway", "192.168.11.1", 0 },	/* LAN gateway */
 	{ "lan1_wins", "", 0 },			/* x.x.x.x x.x.x.x ... */
 	{ "lan1_domain", "", 0 },		/* LAN domain name */
 	{ "lan1_lease", "86400", 0 },		/* LAN lease time in seconds */
@@ -1056,8 +1037,8 @@ struct nvram_tuple router_defaults[] = {
 	{ "dhcp_start", "192.168.50.2" },
 	{ "dhcp_end", "192.168.50.254" },
 #else
-	{ "dhcp_start", "192.168.1.2" },
-	{ "dhcp_end", "192.168.1.254" },
+	{ "dhcp_start", "192.168.10.2" },
+	{ "dhcp_end", "192.168.10.254" },
 #endif
 	{ "dhcp_lease", "86400" },
 	{ "dhcp_gateway_x", "" },
@@ -1077,8 +1058,8 @@ struct nvram_tuple router_defaults[] = {
 	// NVRAM for start_dhcpd
 	// Guest DHCP server parameters
 	{ "dhcp1_enable_x", "0" },
-	{ "dhcp1_start", "192.168.2.2" },
-	{ "dhcp1_end", "192.168.2.254" },
+	{ "dhcp1_start", "192.168.11.2" },
+	{ "dhcp1_end", "192.168.11.254" },
 	{ "dhcp1_lease", "86400" },
 	{ "dhcp1_gateway_x", "" },
 	{ "dhcp1_dns1_x", "" },
@@ -1321,7 +1302,6 @@ struct nvram_tuple router_defaults[] = {
 	{ "dslx_pppoe_idletime", "0" },
 	{ "dslx_pppoe_mtu", "1492" },
 	// this one is no longer to use
-//	{ "dslx_pppoe_mru", "" },
 	{ "dslx_pppoe_service", "" },
 	{ "dslx_pppoe_ac", "" },
 	{ "dslx_pppoe_hostuniq", "" },
@@ -1835,7 +1815,7 @@ struct nvram_tuple router_defaults[] = {
 //#endif
 
 #if defined(RTCONFIG_CHILLISPOT) || defined(RTCONFIG_COOVACHILLI)
-	{"chilli_net", "192.168.182.0/24"},
+	{"chilli_net", "192.168.1082.0/24"},
 #ifdef RTCONFIG_CPFREE
 	{"chilli_enable", "1"},
 #ifdef RTCONFIG_HK_CPFREE
@@ -1855,7 +1835,7 @@ struct nvram_tuple router_defaults[] = {
 	{"chilli_enable", "0"},
 	{"chilli_radius", "127.0.0.1"},
 	{"chilli_backup", "127.0.0.1"},
-	{"chilli_url", "https://192.168.1.1/Uam"},
+	{"chilli_url", "https://192.168.10.1/Uam"},
 	{"chilli_pass", "radius"},
 	{"chilli_uamsecret", "chillispot"},
 #endif
@@ -1884,7 +1864,7 @@ struct nvram_tuple router_defaults[] = {
 	{"hotss_operatorid", ""},
 	{"hotss_locationid", ""},
 	{"hotss_interface", "eth1"},
-	{"hotss_net", "192.168.182.0/24"},
+	{"hotss_net", "192.168.1082.0/24"},
 	{"hotss_customuam", ""},
 	{"hotss_customuamproto", "1"},
 	{"hotss_remotekey", ""}, 
@@ -2011,9 +1991,6 @@ struct nvram_tuple router_defaults[] = {
 	{ "btn_ez_radiotoggle", "0" },	// Turn WPS into radio toggle
 	{ "btn_ez_mode", "0" },	//Turn WPS into led toggle. 0: wps, 1:led
 	//TODO: maybe
-	//1: led. led on/off
-	//2: radio. Wifi radio on/off (btn_ez_radiotoggle=1) ?
-	//3: reset to default (RTCONFIG_WPS_RST_BTN: RT-N11P) ?
 #ifdef RTCONFIG_WIFI_TOG_BTN
 	{ "btn_wifi_toggle", "0" },
 #endif
@@ -2166,7 +2143,7 @@ struct nvram_tuple router_defaults[] = {
 	{"pptpd_wins1", 	"" },
 	{"pptpd_wins2", 	"" },
 	{"pptpd_server", 	"" },
-	{"pptpd_clients", 	"192.168.10.2-11" },
+	{"pptpd_clients", 	"192.168.100.2-11" },
 	{"pptpd_clientlist", 	"" },
 	{"pptpd_mru",		"1450" },
 	{"pptpd_mtu",		"1450" },
@@ -2223,8 +2200,8 @@ struct nvram_tuple router_defaults[] = {
 	{ "vpn_server_ncp_ciphers",	""		},
 	{ "vpn_server_digest",		"default"	},
 	{ "vpn_server_dhcp",		"1"		},
-	{ "vpn_server_r1",		"192.168.1.50"	},
-	{ "vpn_server_r2",		"192.168.1.55"	},
+	{ "vpn_server_r1",		"192.168.10.50"	},
+	{ "vpn_server_r2",		"192.168.10.55"	},
 	{ "vpn_server_sn",		"10.8.0.0"	},
 	{ "vpn_server_nm",		"255.255.255.0"	},
 	{ "vpn_server_local",		"10.8.0.1"	},
@@ -2254,8 +2231,8 @@ struct nvram_tuple router_defaults[] = {
 	{ "vpn_server1_ncp_ciphers",	"AES-128-GCM:AES-256-GCM:AES-128-CBC:AES-256-CBC"},
 	{ "vpn_server1_digest",		"default"	},
 	{ "vpn_server1_dhcp",		"1"		},
-	{ "vpn_server1_r1",		"192.168.1.50"	},
-	{ "vpn_server1_r2",		"192.168.1.55"	},
+	{ "vpn_server1_r1",		"192.168.10.50"	},
+	{ "vpn_server1_r2",		"192.168.10.55"	},
 	{ "vpn_server1_sn",		"10.8.0.0"	},
 	{ "vpn_server1_nm",		"255.255.255.0"	},
 	{ "vpn_server1_local",		"10.8.0.1"	},
@@ -2296,8 +2273,8 @@ struct nvram_tuple router_defaults[] = {
 	{ "vpn_server2_ncp_ciphers",	"AES-128-GCM:AES-256-GCM:AES-128-CBC:AES-256-CBC"},
 	{ "vpn_server2_digest",		"default"	},
 	{ "vpn_server2_dhcp",		"1"		},
-	{ "vpn_server2_r1",		"192.168.1.50"	},
-	{ "vpn_server2_r2",		"192.168.1.55"	},
+	{ "vpn_server2_r1",		"192.168.10.50"	},
+	{ "vpn_server2_r2",		"192.168.10.55"	},
 	{ "vpn_server2_sn",		"10.16.0.0"	},
 	{ "vpn_server2_nm",		"255.255.255.0"	},
 	{ "vpn_server2_local",		"10.16.0.1"	},
@@ -2942,7 +2919,7 @@ struct nvram_tuple router_defaults[] = {
 
 #ifdef RTCONFIG_AUTOCOVER_SIP
 	{ "atcover_sip", "0" },
-	{ "atcover_sip_ip", "192.168.1.1" },
+	{ "atcover_sip_ip", "192.168.10.1" },
 	{ "atcover_sip_type", "0" },
 #endif
 
@@ -3359,85 +3336,86 @@ const defaults_t if_vlan[] = {
 #ifdef RTCONFIG_BCMWL6
 #ifndef RTCONFIG_BCMARM
 struct nvram_tuple bcm4360ac_defaults[] = {
-	{ "pci/2/1/aa2g", "0", 0 },
-	{ "pci/2/1/aa5g", "7", 0 },
-	{ "pci/2/1/aga0", "0", 0 },
-	{ "pci/2/1/aga1", "0", 0 },
-	{ "pci/2/1/aga2", "0", 0 },
-	{ "pci/2/1/agbg0", "133", 0 },
-	{ "pci/2/1/agbg1", "133", 0 },
-	{ "pci/2/1/agbg2", "133", 0 },
-	{ "pci/2/1/antswitch", "0", 0 },
-	{ "pci/2/1/cckbw202gpo", "0", 0 },
-	{ "pci/2/1/cckbw20ul2gpo", "0", 0 },
-	{ "pci/2/1/dot11agofdmhrbw202gpo", "0", 0 },
-	{ "pci/2/1/femctrl", "3", 0 },
-	{ "pci/2/1/papdcap2g", "0", 0 },
-	{ "pci/2/1/tworangetssi2g", "0", 0 },
-	{ "pci/2/1/pdgain2g", "4", 0 },
-	{ "pci/2/1/epagain2g", "0", 0 },
-	{ "pci/2/1/tssiposslope2g", "1", 0 },
-	{ "pci/2/1/gainctrlsph", "0", 0 },
-	{ "pci/2/1/papdcap5g", "0", 0 },
-	{ "pci/2/1/tworangetssi5g", "0", 0 },
-	{ "pci/2/1/pdgain5g", "4", 0 },
-	{ "pci/2/1/epagain5g", "0", 0 },
-	{ "pci/2/1/tssiposslope5g", "1", 0 },
-	{ "pci/2/1/maxp2ga0", "76", 0 },
-	{ "pci/2/1/maxp2ga1", "76", 0 },
-	{ "pci/2/1/maxp2ga2", "76", 0 },
-	{ "pci/2/1/mcsbw202gpo", "0", 0 },
-	{ "pci/2/1/mcsbw402gpo", "0", 0 },
-	{ "pci/2/1/measpower", "0x7f", 0 },
-	{ "pci/2/1/measpower1", "0x7f", 0 },
-	{ "pci/2/1/measpower2", "0x7f", 0 },
-	{ "pci/2/1/noiselvl2ga0", "31", 0 },
-	{ "pci/2/1/noiselvl2ga1", "31", 0 },
-	{ "pci/2/1/noiselvl2ga2", "31", 0 },
-	{ "pci/2/1/noiselvl5gha0", "31", 0 },
-	{ "pci/2/1/noiselvl5gha1", "31", 0 },
-	{ "pci/2/1/noiselvl5gha2", "31", 0 },
-	{ "pci/2/1/noiselvl5gla0", "31", 0 },
-	{ "pci/2/1/noiselvl5gla1", "31", 0 },
-	{ "pci/2/1/noiselvl5gla2", "31", 0 },
-	{ "pci/2/1/noiselvl5gma0", "31", 0 },
-	{ "pci/2/1/noiselvl5gma1", "31", 0 },
-	{ "pci/2/1/noiselvl5gma2", "31", 0 },
-	{ "pci/2/1/noiselvl5gua0", "31", 0 },
-	{ "pci/2/1/noiselvl5gua1", "31", 0 },
-	{ "pci/2/1/noiselvl5gua2", "31", 0 },
-	{ "pci/2/1/ofdmlrbw202gpo", "0", 0 },
-	{ "pci/2/1/pa2ga0", "0xfe72,0x14c0,0xfac7", 0 },
-	{ "pci/2/1/pa2ga1", "0xfe80,0x1472,0xfabc", 0 },
-	{ "pci/2/1/pa2ga2", "0xfe82,0x14bf,0xfad9", 0 },
-	{ "pci/2/1/pcieingress_war", "15", 0 },
-	{ "pci/2/1/phycal_tempdelta", "255", 0 },
-	{ "pci/2/1/rawtempsense", "0x1ff", 0 },
-	{ "pci/2/1/rxchain", "7", 0 },
-	{ "pci/2/1/rxgainerr2g", "0xffff", 0 },
-	{ "pci/2/1/rxgainerr5g", "0xffff,0xffff,0xffff,0xffff", 0 },
-	{ "pci/2/1/rxgains2gelnagaina0", "0", 0 },
-	{ "pci/2/1/rxgains2gelnagaina1", "0", 0 },
-	{ "pci/2/1/rxgains2gelnagaina2", "0", 0 },
-	{ "pci/2/1/rxgains2gtrelnabypa0", "0", 0 },
-	{ "pci/2/1/rxgains2gtrelnabypa1", "0", 0 },
-	{ "pci/2/1/rxgains2gtrelnabypa2", "0", 0 },
-	{ "pci/2/1/rxgains2gtrisoa0", "0", 0 },
-	{ "pci/2/1/rxgains2gtrisoa1", "0", 0 },
-	{ "pci/2/1/rxgains2gtrisoa2", "0", 0 },
-	{ "pci/2/1/sar2g", "18", 0 },
-	{ "pci/2/1/sar5g", "15", 0 },
-	{ "pci/2/1/sromrev", "11", 0 },
-	{ "pci/2/1/subband5gver", "0x4", 0 },
-	{ "pci/2/1/tempcorrx", "0x3f", 0 },
-	{ "pci/2/1/tempoffset", "255", 0 },
-	{ "pci/2/1/temps_hysteresis", "15", 0 },
-	{ "pci/2/1/temps_period", "15", 0 },
-	{ "pci/2/1/tempsense_option", "0x3", 0 },
-	{ "pci/2/1/tempsense_slope", "0xff", 0 },
-	{ "pci/2/1/tempthresh", "255", 0 },
-	{ "pci/2/1/txchain", "7", 0 },
-	{ "pci/2/1/ledbh10", "7", 0 },
+	{ "devpath1", "pci/2/1", 0 },
+	{ "1:aa2g", "0", 0 },
+	{ "1:aa5g", "7", 0 },
+	{ "1:aga0", "0", 0 },
+	{ "1:aga1", "0", 0 },
+	{ "1:aga2", "0", 0 },
+	{ "1:agbg0", "133", 0 },
+	{ "1:agbg1", "133", 0 },
+	{ "1:agbg2", "133", 0 },
+	{ "1:antswitch", "0", 0 },
+	{ "1:cckbw202gpo", "0", 0 },
+	{ "1:cckbw20ul2gpo", "0", 0 },
+	{ "1:dot11agofdmhrbw202gpo", "0", 0 },
+	{ "1:femctrl", "3", 0 },
+	{ "1:papdcap2g", "0", 0 },
+	{ "1:tworangetssi2g", "0", 0 },
+	{ "1:pdgain2g", "4", 0 },
+	{ "1:epagain2g", "0", 0 },
+	{ "1:tssiposslope2g", "1", 0 },
+	{ "1:gainctrlsph", "0", 0 },
+	{ "1:papdcap5g", "0", 0 },
+	{ "1:tworangetssi5g", "0", 0 },
+	{ "1:pdgain5g", "4", 0 },
+	{ "1:epagain5g", "0", 0 },
+	{ "1:tssiposslope5g", "1", 0 },
+	{ "1:maxp2ga0", "76", 0 },
+	{ "1:maxp2ga1", "76", 0 },
+	{ "1:maxp2ga2", "76", 0 },
+	{ "1:mcsbw202gpo", "0", 0 },
+	{ "1:mcsbw402gpo", "0", 0 },
+	{ "1:measpower", "0x7f", 0 },
+	{ "1:measpower1", "0x7f", 0 },
+	{ "1:measpower2", "0x7f", 0 },
+	{ "1:noiselvl2ga0", "31", 0 },
+	{ "1:noiselvl2ga1", "31", 0 },
+	{ "1:noiselvl2ga2", "31", 0 },
+	{ "1:noiselvl5gha0", "31", 0 },
+	{ "1:noiselvl5gha1", "31", 0 },
+	{ "1:noiselvl5gha2", "31", 0 },
+	{ "1:noiselvl5gla0", "31", 0 },
+	{ "1:noiselvl5gla1", "31", 0 },
+	{ "1:noiselvl5gla2", "31", 0 },
+	{ "1:noiselvl5gma0", "31", 0 },
+	{ "1:noiselvl5gma1", "31", 0 },
+	{ "1:noiselvl5gma2", "31", 0 },
+	{ "1:noiselvl5gua0", "31", 0 },
+	{ "1:noiselvl5gua1", "31", 0 },
+	{ "1:noiselvl5gua2", "31", 0 },
+	{ "1:ofdmlrbw202gpo", "0", 0 },
+	{ "1:pa2ga0", "0xfe72,0x14c0,0xfac7", 0 },
+	{ "1:pa2ga1", "0xfe80,0x1472,0xfabc", 0 },
+	{ "1:pa2ga2", "0xfe82,0x14bf,0xfad9", 0 },
+	{ "1:pcieingress_war", "15", 0 },
+	{ "1:phycal_tempdelta", "255", 0 },
+	{ "1:rawtempsense", "0x1ff", 0 },
+	{ "1:rxchain", "7", 0 },
+	{ "1:rxgainerr2g", "0xffff", 0 },
+	{ "1:rxgainerr5g", "0xffff,0xffff,0xffff,0xffff", 0 },
+	{ "1:rxgains2gelnagaina0", "0", 0 },
+	{ "1:rxgains2gelnagaina1", "0", 0 },
+	{ "1:rxgains2gelnagaina2", "0", 0 },
+	{ "1:rxgains2gtrelnabypa0", "0", 0 },
+	{ "1:rxgains2gtrelnabypa1", "0", 0 },
+	{ "1:rxgains2gtrelnabypa2", "0", 0 },
+	{ "1:rxgains2gtrisoa0", "0", 0 },
+	{ "1:rxgains2gtrisoa1", "0", 0 },
+	{ "1:rxgains2gtrisoa2", "0", 0 },
+	{ "1:sar2g", "18", 0 },
+	{ "1:sar5g", "15", 0 },
+	{ "1:sromrev", "11", 0 },
+	{ "1:subband5gver", "0x4", 0 },
+	{ "1:tempcorrx", "0x3f", 0 },
+	{ "1:tempoffset", "255", 0 },
+	{ "1:temps_hysteresis", "15", 0 },
+	{ "1:temps_period", "15", 0 },
+	{ "1:tempsense_option", "0x3", 0 },
+	{ "1:tempsense_slope", "0xff", 0 },
+	{ "1:tempthresh", "255", 0 },
+	{ "1:txchain", "7", 0 },
+	{ "1:ledbh10", "7", 0 },
 
 	{ 0, 0, 0 }
 };
