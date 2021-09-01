@@ -738,12 +738,12 @@ program:
 #endif
                                 && (*(unsigned long *) (ptr) != NVRAM_MAGIC_MAC1) && (*(unsigned long *) (ptr) != NVRAM_MAGIC_RDOM )
                                 && (*(unsigned long *) (ptr) != NVRAM_MAGIC_ASUS )) {
-                        xprintf(".Download of 0x%x bytes Completed\n", copysize);
+                        xprintf("Download of %d bytes Completed\n", copysize);
                         xprintf("Write bootloader binary to FLASH (0xbfc00000)\n");
                         parseflag=1;
                 }
                 else if ( *(unsigned long *) (ptr) == NVRAM_MAGIC_MAC0 ) {
-                        xprintf("Download of 0x%x bytes completed\n", copysize);
+                        xprintf("Download of %d bytes completed\n", copysize);
                         for (i=0; i<17; i++)
                                 MAC0[i] = ptr[4+i];
                         MAC0[i]='\0';
@@ -790,7 +790,7 @@ program:
                 }
                 else {
                         parseflag=-1;
-                        xprintf("Download of 0x%x bytes completed\n", copysize);
+                        xprintf("Download of %d bytes completed\n", copysize);
                         xprintf("Not valid nvram MAGIC at all !!\n");
                         copysize = 0;
                 }
@@ -798,7 +798,7 @@ program:
         else if (copysize>0x40000)
         {
                 parseflag=0;
-                xprintf("Download of 0x%x bytes completed\n", copysize);
+                xprintf("Download of %d bytes completed\n", copysize);
                 xprintf("Write kernel and filesystem binary to FLASH \n");
         }
         else {
@@ -904,9 +904,7 @@ Open_dev:
     /*
      * Program the flash
      */
-
     xprintf("Programming...");
-
     amtcopy = cfe_writeblk(fh,offset,ptr,copysize);
 
 #ifdef RESCUE_MODE
@@ -922,20 +920,20 @@ Open_dev:
                 goto Open_dev;
         }
 #endif
-		if(!cfe) {
-                	for (i=0; i<6; i++)
-	                       send_rescueack(0x0006, 0x0001);
-        	        res = 0;
-                	printf("\nBCM47XX SYSTEM RESET!!!\n\n");
+		if(cfe) {
+	                send_rescueack(0x0006, 0x0001);
+        	        res = CFE_ERR_IOERR;
+                	xprintf("\nBCM47XX SYSTEM RESET!!!\n\n");
 	                cfe_close(fh);
         	        ui_docommand("reboot");
 		}
+		else
+			res = 0;
         }
         else {
                 ui_showerror(amtcopy,"Failed.");
-		if(!cfe) {
-	                for (i=0; i<6; i++)
-        	                send_rescueack(0x0006, 0x0000);
+		if(cfe) {
+        	        send_rescueack(0x0006, 0x0000);
                 	res = CFE_ERR_IOERR;
 		}
         }
