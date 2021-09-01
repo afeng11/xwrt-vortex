@@ -156,25 +156,6 @@ function initial(){
 		}
 	}
 
-	/* Viz remarked 2016.06.17		
-	if(!live_update_support || !HTTPS_support || ("<% nvram_get("firmware_check_enable"); %>" != "1") || exist_firmver[0] == 9){
-		document.getElementById('auto_upgrade_setting').style.display = "none";
-	}
-	else{
-		document.firmware_form.upgrade_date_x_Sun.checked = getDateCheck(document.firmware_form.fw_schedule.value, 0);
-		document.firmware_form.upgrade_date_x_Mon.checked = getDateCheck(document.firmware_form.fw_schedule.value, 1);
-		document.firmware_form.upgrade_date_x_Tue.checked = getDateCheck(document.firmware_form.fw_schedule.value, 2);
-		document.firmware_form.upgrade_date_x_Wed.checked = getDateCheck(document.firmware_form.fw_schedule.value, 3);
-		document.firmware_form.upgrade_date_x_Thu.checked = getDateCheck(document.firmware_form.fw_schedule.value, 4);
-		document.firmware_form.upgrade_date_x_Fri.checked = getDateCheck(document.firmware_form.fw_schedule.value, 5);
-		document.firmware_form.upgrade_date_x_Sat.checked = getDateCheck(document.firmware_form.fw_schedule.value, 6);
-		document.firmware_form.upgrade_time_x_hour.value = getfirmwareTimeRange(document.firmware_form.fw_schedule.value, 0);
-		document.firmware_form.upgrade_time_x_min.value = getfirmwareTimeRange(document.firmware_form.fw_schedule.value, 1);
-		document.getElementById('auto_upgrade_setting').style.display = "";
-		hide_upgrade_option('<% nvram_get("fw_schedule_enable"); %>');		
-	}
-	*/
-
 	if(based_modelid == "RT-AC68R"){	//MODELDEP	//id: asus_link is in string tag #FW_desc0#
 		document.getElementById("asus_link").href = "http://www.asus.com/us/supportonly/RT-AC68R/";
 		document.getElementById("asus_link").innerHTML = "http://www.asus.com/us/supportonly/RT-AC68R/";
@@ -737,10 +718,6 @@ function transferTimeFormat(time){
 					<li id="fw_note3"><#FW_desc0#></li>
 				</ol>
 		  </div>
-		  <div class="formfontdesc">
-  		  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WKWAWNE4ZWE54" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" alt="PayPal - The safer, easier way to pay online!"></a>
-		  </div>
-
 		<table width="100%" border="1" align="center" cellpadding="4" cellspacing="0" bordercolor="#6b8fa3" class="FormTable">
 			<thead>
 				<tr>
@@ -751,31 +728,6 @@ function transferTimeFormat(time){
 				<th><#FW_item1#></th>
 				<td><#Web_Title2#></td>
 			</tr>
-<!--###HTML_PREP_START###-->
-<!--###HTML_PREP_ELSE###-->
-<!--
-[DSL-N55U][DSL-N55U-B]
-{ADSL firmware version}
-			<tr>
-				<th><#adsl_fw_ver_itemname#></th>
-				<td><input type="text" class="input_15_table" value="<% nvram_dump("adsl/tc_fw_ver_short.txt",""); %>" readonly="1" autocorrect="off" autocapitalize="off"></td>
-			</tr>
-			<tr>
-				<th>RAS</th>
-				<td><input type="text" class="input_20_table" value="<% nvram_dump("adsl/tc_ras_ver.txt",""); %>" readonly="1" autocorrect="off" autocapitalize="off"></td>
-			</tr>
-[DSL-AC68U]
-                        <tr>
-                                <th>DSL <#FW_item2#></th>
-                                <td><% nvram_get("dsllog_fwver"); %></td>
-                        </tr>
-                        <tr>
-                                <th><#adsl_fw_ver_itemname#></th>
-                                <td><% nvram_get("dsllog_drvver"); %></td>
-                        </tr>
--->
-
-<!--###HTML_PREP_END###-->
 			<tr id="sig_ver_field" style="display:none">
 				<th>Signature Version</th>
 				<td >
