@@ -156,11 +156,6 @@ function initial(){
 		}
 	}
 
-	if(based_modelid == "RT-AC68R"){	//MODELDEP	//id: asus_link is in string tag #FW_desc0#
-		document.getElementById("asus_link").href = "http://www.asus.com/us/supportonly/RT-AC68R/";
-		document.getElementById("asus_link").innerHTML = "http://www.asus.com/us/supportonly/RT-AC68R/";
-	}
-
 	if(based_modelid == "RT-AC68A"){        //MODELDEP : Spec special fine tune
 		document.getElementById("fw_note2").style.display = "none";
 		document.getElementById("fw_note3").style.display = "none";
@@ -368,7 +363,6 @@ function isDownloading(){
     		dataType: 'script',
 				timeout: 1500,
     		error: function(xhr){
-					
 					rebooting++;
 					if(rebooting < 30){
 							setTimeout("isDownloading();", 1000);
@@ -565,42 +559,36 @@ function updateDateTime()
 					document.firmware_form.upgrade_date_x_Thu,
 					document.firmware_form.upgrade_date_x_Fri,
 					document.firmware_form.upgrade_date_x_Sat);
-		document.firmware_form.fw_schedule.value = setfirmwareTimeRange(
-																									document.firmware_form.fw_schedule,
-																									document.firmware_form.upgrade_time_x_hour,
-																									document.firmware_form.upgrade_time_x_min);
+		document.firmware_form.fw_schedule.value = setfirmwareTimeRange(document.firmware_form.fw_schedule,document.firmware_form.upgrade_time_x_hour,document.firmware_form.upgrade_time_x_min);
 	}	
 }
 
 function applyRule(){
-	
 	if(validForm()){
 		if(live_update_support){
 			updateDateTime();	
-		}	
-		
+		}
 		showLoading();
 		document.firmware_form.submit();
 	}
 }
 
 function validForm(){
-	
 	if(live_update_support){
 		if(!document.firmware_form.upgrade_date_x_Sun.checked && !document.firmware_form.upgrade_date_x_Mon.checked &&
 			!document.firmware_form.upgrade_date_x_Tue.checked && !document.firmware_form.upgrade_date_x_Wed.checked &&
 			!document.firmware_form.upgrade_date_x_Thu.checked && !document.firmware_form.upgrade_date_x_Fri.checked &&
 			!document.firmware_form.upgrade_date_x_Sat.checked && document.firmware_form.fw_schedule_enable.value == "1")
 			{
-				alert(Untranslated.filter_lw_date_valid);
-				document.firmware_form.upgrade_date_x_Sun.focus();
-				return false;
+			alert(Untranslated.filter_lw_date_valid);
+			document.firmware_form.upgrade_date_x_Sun.focus();
+			return false;
 		}
 		else
-				return true;
+			return true;
 	}
 	else
-			return true;
+		return true;
 }
 
 function change_firmware_path(flag){	
@@ -652,8 +640,8 @@ function transferTimeFormat(time){
 	<tr>
 		<td height="80">
 		<div id="loading_block1" class="Bar_container">
-			<span id="proceeding_img_text"></span>
-			<div id="proceeding_img"></div>
+		<span id="proceeding_img_text"></span>
+		<div id="proceeding_img"></div>
 		</div>
 		<div id="loading_block2" style="margin:5px auto; width:85%;"><#FIRM_ok_desc#><br><#Main_alert_proceeding_desc5#></div>
 		<div id="loading_block3" style="margin:5px auto;width:85%; font-size:12pt;"></div>
@@ -668,7 +656,7 @@ function transferTimeFormat(time){
 	<table cellpadding="5" cellspacing="0" id="dr_sweet_advise" class="dr_sweet_advise" align="center" style="height:100px;">
 		<tr>
 		<td>
-			<div class="drword" id="drword" style="">&nbsp;&nbsp;&nbsp;&nbsp;<#Main_alert_proceeding_desc4#> <#Main_alert_proceeding_desc1#>...</div>
+		<div class="drword" id="drword" style="">&nbsp;&nbsp;&nbsp;&nbsp;<#Main_alert_proceeding_desc4#> <#Main_alert_proceeding_desc1#>...</div>
 		</td>
 		</tr>
 	</table>
@@ -689,19 +677,16 @@ function transferTimeFormat(time){
 <table class="content" align="center" cellpadding="0" cellspacing="0">
 	<tr>
 		<td width="17">&nbsp;</td>
-
 		<td valign="top" width="202">
 		<div id="mainMenu"></div>
 		<div id="subMenu"></div>
 		</td>
-
-    <td valign="top">
+   	<td valign="top">
 	<div id="tabMenu" class="submenuBlock"></div>
-		<!--===================================Beginning of Main Content===========================================-->
+<!--===================================Beginning of Main Content===========================================-->
 <table width="98%" border="0" align="left" cellpadding="0" cellspacing="0">
 	<tr>
 		<td align="left" valign="top" >
-
 		<table width="760px" border="0" cellpadding="5" cellspacing="0" class="FormTitle" id="FormTitle">
 		<tbody>
 		<tr>
@@ -721,7 +706,7 @@ function transferTimeFormat(time){
 		<table width="100%" border="1" align="center" cellpadding="4" cellspacing="0" bordercolor="#6b8fa3" class="FormTable">
 			<thead>
 				<tr>
-					<td colspan="2"><#FW_item2#></td>	
+				<td colspan="2"><#FW_item2#></td>	
 				</tr>	
 			</thead>	
 			<tr>
@@ -733,11 +718,11 @@ function transferTimeFormat(time){
 				<td >
 					<div style="height:33px;margin-top:5px;"><span id="sig_ver_word" style="color:#FFFFFF;"></span><span id="sig_update_date"></span></div>
 					<div style="margin-left:200px;margin-top:-38px;">
-						<input type="button" id="sig_check" name="sig_check" class="button_gen" onclick="sig_version_check();" value="<#liveupdate#>">
+					<input type="button" id="sig_check" name="sig_check" class="button_gen" onclick="sig_version_check();" value="<#liveupdate#>">
 					</div>
 					<div>
-						<span id="sig_status" style="display:none"></span>
-						<img id="sig_update_scan" style="display:none;" src="images/InternetScan.gif">
+					<span id="sig_status" style="display:none"></span>
+					<img id="sig_update_scan" style="display:none;" src="images/InternetScan.gif">
 					</div>
 				</td>
 			</tr>
@@ -753,19 +738,19 @@ function transferTimeFormat(time){
 					<input type="button" id="update" name="update" style="display:none;" class="button_gen" onclick="detect_update(document.start_update.firmware_path.value);" value="<#liveupdate#>" />
 					<div id="linkpage_div" class="button_helplink" style="margin-left:200px;margin-top:-25px;display:none;"><a id="linkpage" target="_blank"><div style="padding-top:5px;"><#liveupdate#></div></a></div>
 					<span id="beta_firmware_span">
-						<input type="checkbox" name="beta_firmware_path" id="beta_firmware_path" onclick="change_firmware_path(this.checked==true);"  <% nvram_match("firmware_path", "1", "checked"); %>>Get Beta Firmware</input>
+					<input type="checkbox" name="beta_firmware_path" id="beta_firmware_path" onclick="change_firmware_path(this.checked==true);"  <% nvram_match("firmware_path", "1", "checked"); %>>Get Beta Firmware</input>
 					</span>
 					<div id="check_states">
-						<span id="update_states"></span>
-						<img id="update_scan" style="display:none;" src="images/InternetScan.gif" />
+					<span id="update_states"></span>
+					<img id="update_scan" style="display:none;" src="images/InternetScan.gif" />
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<th><#FW_item5#></th>
 				<td>
-					<input type="file" name="file" class="input" style="color:#FFCC00;*color:#000;width: 194px;">
-					<input type="button" name="upload" class="button_gen" onclick="submitForm()" value="<#CTL_upload#>" />
+				<input type="file" name="file" class="input" style="color:#FFCC00;*color:#000;width: 194px;">
+				<input type="button" name="upload" class="button_gen" onclick="submitForm()" value="<#CTL_upload#>" />
 				</td>
 			</tr>			
 		</table>
@@ -788,7 +773,7 @@ function transferTimeFormat(time){
 		<table id="auto_upgrade_setting" width="100%" border="1" align="center" cellpadding="4" cellspacing="0" bordercolor="#6b8fa3" class="FormTable" style="display:none;">
 			<thead>
 			<tr>
-				<td colspan="2">Auto Upgrade Setting</td>	<!-- untranslated -->	
+			<td colspan="2">Auto Upgrade Setting</td>	<!-- untranslated -->	
 			</tr>	
 			</thead>
 			<tr>
@@ -834,7 +819,6 @@ function transferTimeFormat(time){
 				</td>	
 			</tr>
 		</table>
-		
 			  </td>
               </tr>
             </tbody>
@@ -844,14 +828,12 @@ function transferTimeFormat(time){
       </table>
 		<!--===================================Ending of Main Content===========================================-->
 	</td>
-
     <td width="10" align="center" valign="top">&nbsp;</td>
 	</tr>
 </table>
 
 <div id="footer"></div>
 </form>
-
 <form method="post" name="start_update" action="/start_apply.htm" target="hidden_frame">
 <input type="hidden" name="productid" value="<% nvram_get("productid"); %>">
 <input type="hidden" name="current_page" value="Advanced_FirmwareUpgrade_Content.asp">
